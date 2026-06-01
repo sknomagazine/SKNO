@@ -1,0 +1,101 @@
+body{
+    background:#F7F6F2;
+    margin:0;
+    padding:0;
+    color:#111;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Inclusive+Sans&family=Instrument+Sans:wght@400;700&family=Instrument+Serif&family=Plus+Jakarta+Sans:wght@400;600&display=swap');
+
+header{
+    text-align:center;
+    padding-top:40px;
+}
+
+.logo{
+    width:180px;
+}
+
+.site-title{
+    font-family:'Instrument Sans',sans-serif;
+    font-size:2.4rem;
+    margin-top:10px;
+}
+
+nav{
+    margin-top:30px;
+}
+
+nav a{
+    font-family:'Instrument Serif',serif;
+    text-decoration:none;
+    color:#111;
+    margin:0 15px;
+    font-size:1.1rem;
+}
+
+nav a:hover{
+    opacity:0.6;
+}
+
+main{
+    width:90%;
+    max-width:900px;
+    margin:auto;
+    padding-top:50px;
+}
+
+section{
+    margin-bottom:60px;
+}
+
+section h2{
+    font-family:'Instrument Serif',serif;
+    font-weight:normal;
+}
+
+.publicacao{
+    font-family:'Inclusive Sans',sans-serif;
+    margin-bottom:10px;
+}
+
+.publicacao a{
+    color:#111;
+    text-decoration:none;
+}
+
+.publicacao a:hover{
+    text-decoration:underline;
+}
+
+footer{
+    margin-top:100px;
+    text-align:center;
+    padding:40px;
+    border-top:1px solid #ddd;
+    font-family:'Plus Jakarta Sans',sans-serif;
+}
+
+footer a{
+    margin:0 10px;
+    color:#111;
+    text-decoration:none;
+}
+
+footer a:hover{
+    text-decoration:underline;
+}
+
+@media(max-width:700px){
+
+    nav{
+        display:flex;
+        flex-direction:column;
+        gap:10px;
+    }
+
+    .site-title{
+        font-size:2rem;
+    }
+
+}
