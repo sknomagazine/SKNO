@@ -1,0 +1,35 @@
+[
+  {
+    "id":"album-exemplo",
+
+   {
+  "titulo":"Meu Álbum",
+
+  "thumbnail":"../uploads/musicas/capa.jpg"
+},
+
+    "descricao":"Álbum experimental",
+
+    "data":"2026-06-04",
+
+  "thumbnail":"../uploads/musicas/capa.jpg",
+
+    "capa":"../../uploads/musicas/capa.jpg",
+
+    "faixas":[
+
+      {
+        "titulo":"Faixa 01",
+
+        "arquivo":"../../uploads/musicas/faixa01.mp3"
+      },
+
+      {
+        "titulo":"Faixa 02",
+
+        "arquivo":"../../uploads/musicas/faixa02.mp3"
+      }
+
+    ]
+  }
+]

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+<meta charset="UTF-8">
+
+<title>ARTES</title>
+
+<link rel="stylesheet"
+href="../css/style.css">
+
+</head>
+
+<body>
+
+<main class="page-content">
+
+<div class="category-header">
+
+<h1 class="category-title">
+ARTES
+</h1>
+
+<a href="../index.html"
+class="back-link">
+VOLTAR
+</a>
+
+</div>
+
+<div class="search-wrapper">
+
+<input
+id="searchInput"
+class="search-input"
+type="text"
+placeholder="Pesquisar eZine..."
+onkeyup="searchPublications()">
+
+</div>
+
+<div
+id="publicationGrid"
+class="publication-grid">
+</div>
+
+</a>
+
+</div>
+
+</div>
+
+<div
+id="noResults"
+class="no-results">
+
+Nenhum resultado encontrado.
+
+</div>
+
+</main>
+
+<script src="../js/search.js"></script>
+
+<script src="../js/search.js"></script>
+
+<script src="../js/render-category.js"></script>
+
+<script>
+
+loadCategory(
+"../data/artes.json"
+);
+
+</script>
+
+</body>
+</html>

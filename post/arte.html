@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+<meta charset="UTF-8">
+
+<title>Arte</title>
+
+<link rel="stylesheet"
+href="../../css/style.css">
+
+</head>
+
+<body>
+
+<main class="page-content">
+
+<div class="category-header">
+
+<h1 id="tituloPost">
+Carregando...
+</h1>
+
+<a href="../../artes/index.html"
+class="back-link">
+
+VOLTAR
+
+</a>
+
+</div>
+
+<div id="conteudoArte"></div>
+
+</main>
+
+<script>
+
+const params =
+new URLSearchParams(
+window.location.search
+);
+
+const id =
+params.get("id");
+
+async function carregarArte(){
+
+const response =
+await fetch(
+"../../data/artes.json"
+);
+
+const artes =
+await response.json();
+
+const arte =
+artes.find(
+item=>item.id===id
+);
+
+if(!arte)return;
+
+document
+.getElementById(
+"tituloPost"
+)
+textContent =
+arte.titulo;
+
+let html =
+
+`
+<p>
+Autor: ${arte.autor}
+</p>
+
+<p>
+${arte.texto}
+</p>
+`;
+
+arte.imagens.forEach(img=>{
+
+html +=
+
+`
+<img
+src="${img}"
+style="width:100%;
+margin-bottom:20px;">
+`;
+
+});
+
+document
+.getElementById(
+"conteudoArte"
+)
+innerHTML = html;
+
+}
+
+carregarArte();
+
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+<meta charset="UTF-8">
+
+<title>eZine</title>
+
+<link rel="stylesheet"
+href="../../css/style.css">
+
+</head>
+
+<body>
+
+<main class="page-content">
+
+<div class="category-header">
+
+<h1 id="tituloEzine">
+Carregando...
+</h1>
+
+<a href="../../ezines/index.html"
+class="back-link">
+
+VOLTAR
+
+</a>
+
+</div>
+
+<div id="conteudoEzine"></div>
+
+</main>
+
+<script>
+
+const id =
+new URLSearchParams(
+window.location.search
+).get("id");
+
+async function carregarEzine(){
+
+const response =
+await fetch(
+"../../data/ezines.json"
+);
+
+const ezines =
+await response.json();
+
+const ezine =
+ezines.find(
+e=>e.id===id
+);
+
+if(!ezine)return;
+
+document
+.getElementById(
+"tituloEzine"
+)
+textContent =
+ezine.titulo;
+
+document
+.getElementById(
+"conteudoEzine"
+)
+innerHTML =
+
+`
+<iframe
+src="${ezine.pdf}"
+width="100%"
+height="900">
+
+</iframe>
+`;
+
+}
+
+carregarEzine();
+
+</script>
+
+</body>
+
+</html>

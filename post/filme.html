@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+<meta charset="UTF-8">
+
+<title>Filme</title>
+
+<link rel="stylesheet"
+href="../../css/style.css">
+
+</head>
+
+<body>
+
+<main class="page-content">
+
+<div class="category-header">
+
+<h1 id="tituloFilme">
+Carregando...
+</h1>
+
+<a href="../../filmes/index.html"
+class="back-link">
+
+VOLTAR
+
+</a>
+
+</div>
+
+<div id="conteudoFilme"></div>
+
+</main>
+
+<script>
+
+const id =
+new URLSearchParams(
+window.location.search
+).get("id");
+
+async function carregarFilme(){
+
+const response =
+await fetch(
+"../../data/filmes.json"
+);
+
+const filmes =
+await response.json();
+
+const filme =
+filmes.find(
+f=>f.id===id
+);
+
+if(!filme)return;
+
+document
+.getElementById(
+"tituloFilme"
+)
+textContent =
+filme.titulo;
+
+document
+.getElementById(
+"conteudoFilme"
+)
+innerHTML =
+
+`
+<img
+src="${filme.poster}"
+style="max-width:400px;">
+
+<video
+controls
+width="100%">
+
+<source
+src="${filme.video}">
+
+</video>
+`;
+
+}
+
+carregarFilme();
+
+</script>
+
+</body>
+
+</html>
