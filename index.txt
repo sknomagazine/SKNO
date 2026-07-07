@@ -1,0 +1,7 @@
+Este arquivo é apenas uma referência textual antiga.
+
+A página inicial real do site é:
+
+index.html
+
+Para editar o site, use os arquivos HTML, CSS, JS e JSON nas pastas principais do projeto.

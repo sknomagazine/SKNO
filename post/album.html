@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Álbum | SKNO</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <main class="page-content">
+    <div class="category-header">
+      <h1 id="tituloAlbum" class="category-title">Carregando...</h1>
+      <a href="../MUSICAS/index.html" class="back-link">VOLTAR</a>
+    </div>
+
+    <div id="conteudoAlbum"></div>
+  </main>
+
+  <script>
+    const id = new URLSearchParams(window.location.search).get("id");
+    const assetPath = (path) => path && !path.startsWith("http") ? `../${path}` : path;
+
+    async function carregarAlbum() {
+      const response = await fetch("../data/musicas.json");
+      const albuns = await response.json();
+      const album = albuns.find((item) => item.id === id);
+      const area = document.getElementById("conteudoAlbum");
+
+      if (!album) {
+        document.getElementById("tituloAlbum").textContent = "Publicação não encontrada";
+        area.innerHTML = "<p>Não foi possível encontrar esta publicação.</p>";
+        return;
+      }
+
+      document.getElementById("tituloAlbum").textContent = album.titulo;
+      document.title = `${album.titulo} | SKNO`;
+
+      area.innerHTML = album.capa
+        ? `<img class="post-cover" src="${assetPath(album.capa)}" alt="${album.titulo}">`
+        : "";
+
+      (album.faixas || []).forEach((faixa) => {
+        area.innerHTML += `
+          <h3>${faixa.titulo}</h3>
+          <audio class="post-audio" controls>
+            <source src="${assetPath(faixa.arquivo)}">
+          </audio>
+        `;
+      });
+    }
+
+    carregarAlbum().catch((error) => {
+      console.error(error);
+      document.getElementById("tituloAlbum").textContent = "Erro ao carregar";
+    });
+  </script>
+</body>
+</html>

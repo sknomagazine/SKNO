@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SKNO</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="hero">
+    <div class="brand-wrap">
+      <img src="OSHAK.png" alt="Logo do site" class="site-logo-image">
+      <h1 class="site-title">SKNO</h1>
+    </div>
+
+    <form class="site-search" role="search">
+      <input id="homeSearchInput" type="search" placeholder="Pesquisar publicações" aria-label="Pesquisar publicações">
+    </form>
+
+    <nav class="main-menu" aria-label="Navegação principal">
+      <a href="TEXTOS/index.html">TEXTOS</a>
+      <a href="eZINES/index.html">eZINES</a>
+      <a href="ARTES/index.html">ARTES VISUAIS</a>
+      <a href="MUSICAS/index.html">MÚSICAS</a>
+      <a href="FILMES/index.html">FILMES</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="latest-posts">
+      <h2>ÚLTIMAS PUBLICAÇÕES</h2>
+      <div id="latestPosts" class="publication-grid"></div>
+      <div id="homeNoResults" class="no-results">Nenhum resultado encontrado.</div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-links">
+      <a href="sobre.html">SOBRE</a>
+      <a href="como-publicar.html">COMO PUBLICAR</a>
+    </div>
+    <div id="siteFooter"></div>
+  </footer>
+
+  <script src="js/render-home.js"></script>
+  <script src="js/site-config.js"></script>
+</body>
+</html>

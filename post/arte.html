@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Arte | SKNO</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <main class="page-content">
+    <div class="category-header">
+      <h1 id="tituloPost" class="category-title">Carregando...</h1>
+      <a href="../ARTES/index.html" class="back-link">VOLTAR</a>
+    </div>
+
+    <div id="conteudoArte"></div>
+  </main>
+
+  <script>
+    const id = new URLSearchParams(window.location.search).get("id");
+    const assetPath = (path) => path && !path.startsWith("http") ? `../${path}` : path;
+
+    async function carregarArte() {
+      const response = await fetch("../data/artes.json");
+      const artes = await response.json();
+      const arte = artes.find((item) => item.id === id);
+      const area = document.getElementById("conteudoArte");
+
+      if (!arte) {
+        document.getElementById("tituloPost").textContent = "Publicação não encontrada";
+        area.innerHTML = "<p>Não foi possível encontrar esta publicação.</p>";
+        return;
+      }
+
+      document.getElementById("tituloPost").textContent = arte.titulo;
+      document.title = `${arte.titulo} | SKNO`;
+
+      area.innerHTML = `
+        <div class="post-meta">
+          <p><strong>Autor:</strong> ${arte.autor || "Não informado"}</p>
+        </div>
+        <p>${arte.texto || ""}</p>
+      `;
+
+      (arte.imagens || []).forEach((imagem) => {
+        const img = document.createElement("img");
+        img.className = "post-image";
+        img.src = assetPath(imagem);
+        img.alt = arte.titulo;
+        area.appendChild(img);
+      });
+    }
+
+    carregarArte().catch((error) => {
+      console.error(error);
+      document.getElementById("tituloPost").textContent = "Erro ao carregar";
+    });
+  </script>
+</body>
+</html>

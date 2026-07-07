@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>eZine | SKNO</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <main class="page-content">
+    <div class="category-header">
+      <h1 id="tituloEzine" class="category-title">Carregando...</h1>
+      <a href="../eZINES/index.html" class="back-link">VOLTAR</a>
+    </div>
+
+    <div id="conteudoEzine"></div>
+  </main>
+
+  <script>
+    const id = new URLSearchParams(window.location.search).get("id");
+    const assetPath = (path) => path && !path.startsWith("http") ? `../${path}` : path;
+
+    async function carregarEzine() {
+      const response = await fetch("../data/ezines.json");
+      const ezines = await response.json();
+      const ezine = ezines.find((item) => item.id === id);
+      const area = document.getElementById("conteudoEzine");
+
+      if (!ezine) {
+        document.getElementById("tituloEzine").textContent = "Publicação não encontrada";
+        area.innerHTML = "<p>Não foi possível encontrar esta publicação.</p>";
+        return;
+      }
+
+      document.getElementById("tituloEzine").textContent = ezine.titulo;
+      document.title = `${ezine.titulo} | SKNO`;
+      area.innerHTML = `<iframe class="post-embed" src="${assetPath(ezine.pdf)}" title="${ezine.titulo}"></iframe>`;
+    }
+
+    carregarEzine().catch((error) => {
+      console.error(error);
+      document.getElementById("tituloEzine").textContent = "Erro ao carregar";
+    });
+  </script>
+</body>
+</html>

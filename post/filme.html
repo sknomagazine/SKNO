@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Filme | SKNO</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <main class="page-content">
+    <div class="category-header">
+      <h1 id="tituloFilme" class="category-title">Carregando...</h1>
+      <a href="../FILMES/index.html" class="back-link">VOLTAR</a>
+    </div>
+
+    <div id="conteudoFilme"></div>
+  </main>
+
+  <script>
+    const id = new URLSearchParams(window.location.search).get("id");
+    const assetPath = (path) => path && !path.startsWith("http") ? `../${path}` : path;
+
+    async function carregarFilme() {
+      const response = await fetch("../data/filmes.json");
+      const filmes = await response.json();
+      const filme = filmes.find((item) => item.id === id);
+      const area = document.getElementById("conteudoFilme");
+
+      if (!filme) {
+        document.getElementById("tituloFilme").textContent = "Publicação não encontrada";
+        area.innerHTML = "<p>Não foi possível encontrar esta publicação.</p>";
+        return;
+      }
+
+      document.getElementById("tituloFilme").textContent = filme.titulo;
+      document.title = `${filme.titulo} | SKNO`;
+      area.innerHTML = `
+        ${filme.poster ? `<img class="post-cover" src="${assetPath(filme.poster)}" alt="${filme.titulo}">` : ""}
+        <video class="post-video" controls>
+          <source src="${assetPath(filme.video)}">
+        </video>
+      `;
+    }
+
+    carregarFilme().catch((error) => {
+      console.error(error);
+      document.getElementById("tituloFilme").textContent = "Erro ao carregar";
+    });
+  </script>
+</body>
+</html>

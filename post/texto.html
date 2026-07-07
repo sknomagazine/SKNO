@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Texto | SKNO</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <main class="page-content">
+    <div class="category-header">
+      <h1 id="tituloPost" class="category-title">Carregando...</h1>
+      <a href="../TEXTOS/index.html" class="back-link">VOLTAR</a>
+    </div>
+
+    <div id="conteudoTexto"></div>
+  </main>
+
+  <script>
+    const id = new URLSearchParams(window.location.search).get("id");
+
+    async function carregarTexto() {
+      const response = await fetch("../data/textos.json");
+      const textos = await response.json();
+      const texto = textos.find((item) => item.id === id);
+      const area = document.getElementById("conteudoTexto");
+
+      if (!texto) {
+        document.getElementById("tituloPost").textContent = "Publicação não encontrada";
+        area.innerHTML = "<p>Não foi possível encontrar esta publicação.</p>";
+        return;
+      }
+
+      document.getElementById("tituloPost").textContent = texto.titulo;
+      document.title = `${texto.titulo} | SKNO`;
+
+      area.innerHTML = `
+        <div class="post-meta">
+          <p><strong>Autor:</strong> ${texto.autor || "Não informado"}</p>
+          <p><strong>Data:</strong> ${texto.data || "Sem data"}</p>
+        </div>
+        <hr>
+      `;
+
+      texto.conteudo.forEach((paragrafo) => {
+        const p = document.createElement("p");
+        p.textContent = paragrafo;
+        area.appendChild(p);
+      });
+    }
+
+    carregarTexto().catch((error) => {
+      console.error(error);
+      document.getElementById("tituloPost").textContent = "Erro ao carregar";
+    });
+  </script>
+</body>
+</html>

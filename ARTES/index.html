@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Artes Visuais | SKNO</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <main class="page-content">
+    <div class="category-header">
+      <h1 class="category-title">ARTES VISUAIS</h1>
+      <a href="../index.html" class="back-link">VOLTAR</a>
+    </div>
+
+    <div class="search-wrapper">
+      <input id="searchInput" class="search-input" type="text" placeholder="Pesquisar arte..." onkeyup="searchPublications()">
+    </div>
+
+    <div id="publicationGrid" class="publication-grid"></div>
+    <div id="noResults" class="no-results">Nenhum resultado encontrado.</div>
+  </main>
+
+  <script src="../js/search.js"></script>
+  <script src="../js/render-category.js"></script>
+  <script>
+    loadCategory("../data/artes.json", "../post/arte.html");
+  </script>
+</body>
+</html>

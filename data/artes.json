@@ -1,0 +1,15 @@
+[
+  {
+    "id": "obra-exemplo",
+    "titulo": "Obra Exemplo",
+    "descricao": "Galeria de imagens",
+    "data": "2026-06-04",
+    "autor": "Autor da Obra",
+    "texto": "Esta publicação funciona como modelo para uma obra visual, exibindo uma breve descrição e uma sequência de imagens vinculadas à ideia central da peça.",
+    "imagens": [
+      "uploads/artes/imagem1.jpg",
+      "uploads/artes/imagem2.jpg",
+      "uploads/artes/imagem3.jpg"
+    ]
+  }
+]
