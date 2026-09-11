@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>SKNO Admin</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#inicio" aria-label="Início do SKNO Admin">SKNO <span>ADMIN</span></a>
+    <a class="site-link" href="https://skno.pages.dev" target="_blank" rel="noopener noreferrer">ABRIR SITE</a>
+  </header>
+  <main>
+    <section id="homeView" class="view">
+      <h1>SKNO ADMIN</h1>
+      <h2>Nova publicação</h2>
+      <div class="type-grid" aria-label="Tipos de publicação">
+        <button data-new="texto">TEXTO</button><button data-new="ezine">eZINE</button>
+        <button data-new="arte">ARTE VISUAL</button><button data-new="musica">MÚSICA</button>
+        <button data-new="filme">FILME</button>
+      </div>
+      <h2>Publicações</h2>
+      <button id="manageButton" class="wide">GERENCIAR PUBLICAÇÕES</button>
+      <h2>Status</h2>
+      <dl class="status-box"><div><dt>GitHub</dt><dd id="githubStatus">verificando…</dd></div><div><dt>Site</dt><dd>operacional</dd></div></dl>
+      <p id="configWarning" class="notice error" hidden></p>
+    </section>
+
+    <section id="editorView" class="view" hidden>
+      <button class="back" data-home>← VOLTAR</button>
+      <h1 id="editorTitle">NOVA PUBLICAÇÃO</h1>
+      <form id="publicationForm" novalidate>
+        <input type="hidden" id="type" name="type"><input type="hidden" id="originalId" name="originalId">
+        <div class="field"><label for="title">Título *</label><input id="title" name="titulo" required maxlength="160"><small class="field-error" id="titleError"></small></div>
+        <div class="field optional-author"><label for="author">Autor / artista / diretor *</label><input id="author" name="autor" maxlength="160"></div>
+        <div class="field"><label for="date">Data *</label><input id="date" name="data" type="date" required></div>
+        <div class="field"><label for="description">Descrição *</label><textarea id="description" name="descricao" rows="3" required maxlength="1000"></textarea></div>
+        <div class="field"><label for="slug">ID / slug *</label><input id="slug" name="id" required pattern="[a-z0-9]+(?:-[a-z0-9]+)*" maxlength="100"><small>Gerado automaticamente; use letras minúsculas, números e hífens.</small></div>
+
+        <div id="textFields" class="kind-fields"><div class="field"><label for="content">Conteúdo *</label><textarea id="content" rows="14" placeholder="Separe os parágrafos com uma linha em branco"></textarea></div></div>
+        <div id="ezineFields" class="kind-fields" hidden><div class="field"><label for="pdfUrl">URL direta do PDF</label><input id="pdfUrl" type="url" placeholder="https://…"></div><div class="field"><label for="pdfFile">Ou PDF (máx. 20 MiB)</label><input id="pdfFile" type="file" accept="application/pdf,.pdf"></div></div>
+        <div id="artFields" class="kind-fields" hidden><div class="field"><label for="presentation">Texto / apresentação</label><textarea id="presentation" rows="5"></textarea></div><div class="field"><label for="artFiles">Imagens (máx. 10 MiB cada; até 20)</label><input id="artFiles" type="file" multiple accept="image/jpeg,image/png,image/webp,.jpg,.jpeg,.png,.webp"></div><div id="artList" class="file-list"></div></div>
+        <div id="musicFields" class="kind-fields" hidden><div class="field"><label for="coverFile">Capa (máx. 10 MiB)</label><input id="coverFile" type="file" accept="image/jpeg,image/png,image/webp,.jpg,.jpeg,.png,.webp"></div><div id="tracks"></div><button type="button" id="addTrack">+ ADICIONAR FAIXA</button></div>
+        <div id="filmFields" class="kind-fields" hidden><div class="field"><label for="posterFile">Poster (máx. 10 MiB)</label><input id="posterFile" type="file" accept="image/jpeg,image/png,image/webp,.jpg,.jpeg,.png,.webp"></div><div class="field"><label for="videoUrl">URL direta do vídeo</label><input id="videoUrl" type="url" placeholder="https://…"></div><div class="field"><label for="videoFile">Ou vídeo (máx. 20 MiB)</label><input id="videoFile" type="file" accept="video/mp4,video/webm,.mp4,.webm"></div></div>
+
+        <div id="formMessage" class="notice" role="alert" hidden></div>
+        <div class="actions"><button type="button" id="previewButton">VISUALIZAR</button><button type="button" id="draftButton">SALVAR RASCUNHO LOCAL</button><button type="submit" class="primary">PUBLICAR</button></div>
+      </form>
+    </section>
+
+    <section id="manageView" class="view" hidden>
+      <button class="back" data-home>← VOLTAR</button><h1>PUBLICAÇÕES</h1>
+      <div id="filters" class="filters"><button data-filter="all" class="active">TODAS</button><button data-filter="texto">TEXTOS</button><button data-filter="ezine">eZINES</button><button data-filter="arte">ARTES</button><button data-filter="musica">MÚSICAS</button><button data-filter="filme">FILMES</button></div>
+      <div id="publicationList" class="publication-list" aria-live="polite"></div>
+    </section>
+  </main>
+
+  <dialog id="previewDialog"><div class="dialog-head"><h2>PRÉ-VISUALIZAÇÃO</h2><button data-close="previewDialog" aria-label="Fechar">×</button></div><article id="previewContent" class="preview"></article></dialog>
+  <dialog id="deleteDialog"><div class="dialog-head"><h2>EXCLUIR PUBLICAÇÃO</h2><button data-close="deleteDialog" aria-label="Fechar">×</button></div><p>Você está prestes a excluir:</p><strong id="deleteTitle"></strong><p>Esta ação modificará o site público.</p><label for="deleteConfirm">Digite <strong>EXCLUIR</strong> para confirmar</label><input id="deleteConfirm" autocomplete="off"><button id="deleteFinal" class="danger" disabled>EXCLUIR DEFINITIVAMENTE</button></dialog>
+  <script type="module" src="app.js"></script>
+</body>
+</html>

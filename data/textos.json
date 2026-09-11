@@ -1,0 +1,26 @@
+[
+  {
+    "id": "manifesto-exemplo",
+    "titulo": "Manifesto Exemplo",
+    "descricao": "Primeira publicação de texto",
+    "data": "2026-06-04",
+    "autor": "Nome do Autor",
+    "conteudo": [
+      "Este texto funciona como um exemplo de publicação para a seção de textos do repositório. Ele ilustra como novos materiais podem ser inseridos futuramente com um tom autoral e independente.",
+      "A linguagem pode ser crítica, poética ou experimental, conforme a proposta da plataforma. O importante é que a obra tenha uma presença clara e uma leitura confortável para o público.",
+      "Os próximos registros podem se aprofundar em ensaios, crônicas, poemas ou estudos, sempre mantendo uma relação direta com a identidade do projeto."
+    ]
+  },
+  {
+    "id": "poema-exemplo",
+    "titulo": "Poema Exemplo",
+    "descricao": "Poema experimental",
+    "data": "2026-05-20",
+    "autor": "Autor 2",
+    "conteudo": [
+      "Luz sobre a página,\ncomo um objeto esquecido.",
+      "Há uma pausa no ar que se parece com memória.",
+      "E cada linha é um gesto de retorno."
+    ]
+  }
+]

@@ -1,0 +1,10 @@
+[
+  {
+    "id": "filme-exemplo",
+    "titulo": "Filme Exemplo",
+    "descricao": "Curta-metragem",
+    "data": "2026-06-04",
+    "poster": "uploads/filmes/poster.jpg",
+    "video": "uploads/filmes/filme.mp4"
+  }
+]
