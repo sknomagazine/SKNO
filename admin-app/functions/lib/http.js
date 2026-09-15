@@ -6,7 +6,7 @@ export const json = (body, status = 200, extra = {}) => new Response(JSON.string
 export function errorResponse(error) {
   const known = error && Number.isInteger(error.status) ? error.status : 500;
   const code = error?.code || "INTERNAL_ERROR";
-  if (known >= 500) console.error("SKNO Admin error", code, error?.message);
+  if (known >= 500) console.error("SKNO Admin error", code);
   return json({ error: known >= 500 ? "Não foi possível concluir a operação." : error.message, code }, known);
 }
 
