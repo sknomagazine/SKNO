@@ -22,6 +22,7 @@
 
     async function carregarArte() {
       const response = await fetch("../data/artes.json");
+      if (!response.ok) throw new Error(`Falha ao carregar: ${response.status}`);
       const artes = await response.json();
       const arte = artes.find((item) => item.id === id);
       const area = document.getElementById("conteudoArte");

@@ -16,7 +16,7 @@
       <h1>SKNO ADMIN</h1>
       <h2>Nova publicação</h2>
       <div class="type-grid" aria-label="Tipos de publicação">
-        <button data-new="texto">TEXTO</button><button data-new="ezine">eZINE</button>
+        <button data-new="texto">TEXTO</button><button data-new="qc">QC</button>
         <button data-new="arte">ARTE VISUAL</button><button data-new="musica">MÚSICA</button>
         <button data-new="filme">FILME</button>
       </div>
@@ -39,7 +39,7 @@
         <div class="field"><label for="slug">ID / slug *</label><input id="slug" name="id" required pattern="[a-z0-9]+(?:-[a-z0-9]+)*" maxlength="100"><small>Gerado automaticamente; use letras minúsculas, números e hífens.</small></div>
 
         <div id="textFields" class="kind-fields"><div class="field"><label for="content">Conteúdo *</label><textarea id="content" rows="14" placeholder="Separe os parágrafos com uma linha em branco"></textarea></div></div>
-        <div id="ezineFields" class="kind-fields" hidden><div class="field"><label for="pdfUrl">URL direta do PDF</label><input id="pdfUrl" type="url" placeholder="https://…"></div><div class="field"><label for="pdfFile">Ou PDF (máx. 20 MiB)</label><input id="pdfFile" type="file" accept="application/pdf,.pdf"></div></div>
+        <div id="qcFields" class="kind-fields" hidden><div class="field"><label for="pdfUrl">URL direta do PDF</label><input id="pdfUrl" type="url" placeholder="https://…"></div><div class="field"><label for="pdfFile">Ou PDF (máx. 20 MiB)</label><input id="pdfFile" type="file" accept="application/pdf,.pdf"></div></div>
         <div id="artFields" class="kind-fields" hidden><div class="field"><label for="presentation">Texto / apresentação</label><textarea id="presentation" rows="5"></textarea></div><div class="field"><label for="artFiles">Imagens (máx. 10 MiB cada; até 20)</label><input id="artFiles" type="file" multiple accept="image/jpeg,image/png,image/webp,.jpg,.jpeg,.png,.webp"></div><div id="artList" class="file-list"></div></div>
         <div id="musicFields" class="kind-fields" hidden><div class="field"><label for="coverFile">Capa (máx. 10 MiB)</label><input id="coverFile" type="file" accept="image/jpeg,image/png,image/webp,.jpg,.jpeg,.png,.webp"></div><div id="tracks"></div><button type="button" id="addTrack">+ ADICIONAR FAIXA</button></div>
         <div id="filmFields" class="kind-fields" hidden><div class="field"><label for="posterFile">Poster (máx. 10 MiB)</label><input id="posterFile" type="file" accept="image/jpeg,image/png,image/webp,.jpg,.jpeg,.png,.webp"></div><div class="field"><label for="videoUrl">URL direta do vídeo</label><input id="videoUrl" type="url" placeholder="https://…"></div><div class="field"><label for="videoFile">Ou vídeo (máx. 20 MiB)</label><input id="videoFile" type="file" accept="video/mp4,video/webm,.mp4,.webm"></div></div>
@@ -51,7 +51,7 @@
 
     <section id="manageView" class="view" hidden>
       <button class="back" data-home>← VOLTAR</button><h1>PUBLICAÇÕES</h1>
-      <div id="filters" class="filters"><button data-filter="all" class="active">TODAS</button><button data-filter="texto">TEXTOS</button><button data-filter="ezine">eZINES</button><button data-filter="arte">ARTES</button><button data-filter="musica">MÚSICAS</button><button data-filter="filme">FILMES</button></div>
+      <div id="filters" class="filters"><button data-filter="all" class="active">TODAS</button><button data-filter="texto">TEXTOS</button><button data-filter="qc">QC</button><button data-filter="arte">ARTES</button><button data-filter="musica">MÚSICAS</button><button data-filter="filme">FILMES</button></div>
       <div id="publicationList" class="publication-list" aria-live="polite"></div>
     </section>
   </main>

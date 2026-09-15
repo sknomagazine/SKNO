@@ -22,6 +22,7 @@
 
     async function carregarFilme() {
       const response = await fetch("../data/filmes.json");
+      if (!response.ok) throw new Error(`Falha ao carregar: ${response.status}`);
       const filmes = await response.json();
       const filme = filmes.find((item) => item.id === id);
       const area = document.getElementById("conteudoFilme");

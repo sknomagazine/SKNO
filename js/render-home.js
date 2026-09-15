@@ -1,18 +1,21 @@
 async function loadHomePosts() {
   const arquivos = [
     { categoria: "TEXTOS", arquivo: "data/textos.json", base: "post/texto.html" },
-    { categoria: "eZINES", arquivo: "data/ezines.json", base: "post/ezine.html" },
+    { categoria: "QC", arquivo: "data/qc.json", base: "post/qc.html" },
     { categoria: "ARTES VISUAIS", arquivo: "data/artes.json", base: "post/arte.html" },
     { categoria: "MÚSICAS", arquivo: "data/musicas.json", base: "post/album.html" },
     { categoria: "FILMES", arquivo: "data/filmes.json", base: "post/filme.html" }
   ];
 
   const publicacoes = [];
+  let falhas = 0;
 
   for (const item of arquivos) {
     try {
       const response = await fetch(item.arquivo);
+      if (!response.ok) throw new Error(`Falha ao carregar: ${response.status}`);
       const dados = await response.json();
+      if (!Array.isArray(dados)) throw new Error("Lista de publicações inválida.");
 
       dados.forEach((pub) => {
         publicacoes.push({
@@ -20,11 +23,12 @@ async function loadHomePosts() {
           titulo: pub.titulo || "Sem título",
           descricao: pub.descricao || pub.texto || "Publicação",
           data: pub.data || "",
-          link: `${item.base}?id=${pub.id}`,
+          link: `${item.base}?id=${encodeURIComponent(pub.id)}`,
           thumbnail: pub.thumbnail || pub.capa || pub.poster || ""
         });
       });
     } catch (error) {
+      falhas++;
       console.error(error);
     }
   }
@@ -36,9 +40,16 @@ async function loadHomePosts() {
   const noResults = document.getElementById("homeNoResults");
 
   if (!container) return;
+  if (falhas) {
+    const warning = document.createElement("p");
+    warning.setAttribute("role", "status");
+    warning.textContent = "Não foi possível carregar todas as publicações. Tente novamente mais tarde.";
+    container.before(warning);
+  }
 
   function render(lista) {
     container.replaceChildren();
+    if (noResults) noResults.style.display = lista.length || falhas === arquivos.length ? "none" : "block";
 
     lista.slice(0, 10).forEach((pub) => {
       const card = document.createElement("article");

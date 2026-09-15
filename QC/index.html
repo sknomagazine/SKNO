@@ -3,18 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Músicas | SKNO</title>
+  <title>Quadrinhos e Charges | SKNO</title>
   <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
   <main class="page-content">
     <div class="category-header">
-      <h1 class="category-title">MÚSICAS</h1>
+      <h1 class="category-title">Quadrinhos e Charges</h1>
       <a href="../index.html" class="back-link">VOLTAR</a>
     </div>
 
     <div class="search-wrapper">
-      <input id="searchInput" class="search-input" type="text" placeholder="Pesquisar música..." aria-label="Pesquisar publicações" oninput="searchPublications()">
+      <input id="searchInput" class="search-input" type="text" placeholder="Pesquisar QC..." aria-label="Pesquisar publicações" oninput="searchPublications()">
     </div>
 
     <div id="publicationGrid" class="publication-grid"></div>
@@ -24,7 +24,7 @@
   <script src="../js/search.js"></script>
   <script src="../js/render-category.js"></script>
   <script>
-    loadCategory("../data/musicas.json", "../post/album.html");
+    loadCategory("../data/qc.json", "../post/qc.html");
   </script>
 </body>
 </html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QC | SKNO</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <main class="page-content">
+    <div class="category-header">
+      <h1 id="tituloQC" class="category-title">Carregando...</h1>
+      <a href="../QC/index.html" class="back-link">VOLTAR</a>
+    </div>
+
+    <div id="conteudoQC"></div>
+  </main>
+
+  <script>
+    const id = new URLSearchParams(window.location.search).get("id");
+    const assetPath = (path) => path && !path.startsWith("http") ? `../${path}` : path;
+
+    async function carregarQC() {
+      const response = await fetch("../data/qc.json");
+      if (!response.ok) throw new Error(`Falha ao carregar: ${response.status}`);
+      const publicacoes = await response.json();
+      const qc = publicacoes.find((item) => item.id === id);
+      const area = document.getElementById("conteudoQC");
+
+      if (!qc) {
+        document.getElementById("tituloQC").textContent = "Publicação não encontrada";
+        const message = document.createElement("p"); message.textContent = "Não foi possível encontrar esta publicação."; area.replaceChildren(message);
+        return;
+      }
+
+      document.getElementById("tituloQC").textContent = qc.titulo;
+      document.title = `${qc.titulo} | SKNO`;
+      area.replaceChildren();
+      const frame = document.createElement("iframe"); frame.className = "post-embed"; frame.src = assetPath(qc.pdf); frame.title = qc.titulo; area.appendChild(frame);
+    }
+
+    carregarQC().catch((error) => {
+      console.error(error);
+      document.getElementById("tituloQC").textContent = "Erro ao carregar";
+    });
+  </script>
+</body>
+</html>

@@ -1,6 +1,7 @@
 async function loadSiteConfig() {
   try {
     const response = await fetch("data/site.json");
+    if (!response.ok) throw new Error(`Falha ao carregar: ${response.status}`);
     const site = await response.json();
     const footer = document.getElementById("siteFooter");
 

@@ -21,6 +21,7 @@
 
     async function carregarTexto() {
       const response = await fetch("../data/textos.json");
+      if (!response.ok) throw new Error(`Falha ao carregar: ${response.status}`);
       const textos = await response.json();
       const texto = textos.find((item) => item.id === id);
       const area = document.getElementById("conteudoTexto");

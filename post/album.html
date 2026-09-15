@@ -22,6 +22,7 @@
 
     async function carregarAlbum() {
       const response = await fetch("../data/musicas.json");
+      if (!response.ok) throw new Error(`Falha ao carregar: ${response.status}`);
       const albuns = await response.json();
       const album = albuns.find((item) => item.id === id);
       const area = document.getElementById("conteudoAlbum");

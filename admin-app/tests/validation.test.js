@@ -4,6 +4,19 @@ import { matchesMagicBytes, slugify, validatePublication, validateUpload } from 
 
 const text = { id: "meu-texto", titulo: "Meu texto", autor: "Autora", data: "2026-09-10", descricao: "Descrição", conteudo: ["Parágrafo"] };
 test("gera slug normalizado", () => assert.equal(slugify("Meu Primeiro Têxto!"), "meu-primeiro-texto"));
+test("rejeita dia inexistente no calendário", () => assert.throws(() => validatePublication("texto", { ...text, data: "2026-02-30" }), /data válida/));
+test("aceita data de ano bissexto", () => assert.equal(validatePublication("texto", { ...text, data: "2024-02-29" }).data, "2024-02-29"));
+test("rejeita assinatura PNG incompleta", () => {
+  assert.equal(matchesMagicBytes("image", "image/png", new Uint8Array()), false);
+  assert.equal(matchesMagicBytes("image", "image/png", new Uint8Array([137, 80])), false);
+  assert.equal(matchesMagicBytes("image", "image/png", new Uint8Array([137, 80, 78, 71, 13, 10, 26, 10])), true);
+});
+test("rejeita slug vazio no upload", () => assert.throws(() => validateUpload({ type: "qc", slug: "", kind: "pdf", name: "obra.pdf", mime: "application/pdf", size: 20 }), /Slug/));
+test("publica QC e direciona PDF para a nova pasta", () => {
+  const pdf = validateUpload({ type: "qc", slug: "charge", kind: "pdf", name: "obra.pdf", mime: "application/pdf", size: 20 });
+  assert.equal(pdf, "uploads/qc/charge/obra.pdf");
+  assert.equal(validatePublication("qc", { ...text, pdf }).pdf, pdf);
+});
 test("aceita texto válido", () => assert.equal(validatePublication("texto", text).id, "meu-texto"));
 test("rejeita título vazio", () => assert.throws(() => validatePublication("texto", { ...text, titulo: "" }), /Preencha/));
 test("rejeita autor vazio", () => assert.throws(() => validatePublication("texto", { ...text, autor: "" }), /autor/));

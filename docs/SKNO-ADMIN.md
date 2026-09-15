@@ -2,7 +2,7 @@
 
 ## O que é
 
-O SKNO Admin é uma tela privada para publicar, editar e excluir textos, eZines, artes, músicas e filmes sem editar HTML ou JSON. O site público continua estático e aberto em `https://skno.pages.dev`. O painel deve ser um segundo projeto, por exemplo `https://skno-admin.pages.dev`, inteiramente protegido pelo Cloudflare Access.
+O SKNO Admin é uma tela privada para publicar, editar e excluir textos, QC, artes, músicas e filmes sem editar HTML ou JSON. O site público continua estático e aberto em `https://skno.pages.dev`. O painel deve ser um segundo projeto, por exemplo `https://skno-admin.pages.dev`, inteiramente protegido pelo Cloudflare Access.
 
 O fluxo é: navegador do administrador → Cloudflare Access → Pages Function → API do GitHub → commit na branch `main` → novo deploy automático do site público. O token do GitHub fica criptografado na Cloudflare e nunca é enviado ao navegador.
 
@@ -66,9 +66,9 @@ Mesmo depois da barreira do Access, as Functions conferem criptograficamente o J
 
 Clique **TEXTO**, informe título, autor, data, descrição e conteúdo. Separe parágrafos com uma linha em branco. O slug nasce do título e pode ser alterado. Clique **VISUALIZAR** e depois **PUBLICAR**.
 
-### Publicar eZine
+### Publicar QC
 
-Clique **eZINE** e preencha os dados. Selecione um PDF de até 20 MiB ou informe uma URL direta. O arquivo enviado vai para `uploads/ezines/<slug>/`.
+Clique **QC** e preencha os dados. Selecione um PDF de até 20 MiB ou informe uma URL direta. O arquivo enviado vai para `uploads/qc/<slug>/`.
 
 ### Publicar arte
 
@@ -120,7 +120,7 @@ Use MFA, renove o token, mantenha somente um e-mail na política, não desative 
 
 O rate limiting complexo não foi adicionado: o Access limita o painel a uma pessoa e os endpoints já limitam payloads e quantidades. Revise cotas caso o uso mude.
 
-`data/ezines.json` é o arquivo ativo, referenciado pela home, categoria e template. `data/ezine.json` é uma cópia legada sem referências nesta auditoria e foi mantida para não apagar conteúdo sem confirmação. O publicador desktop em `skno-publisher/` também foi preservado, mas não participa do novo fluxo web.
+`data/qc.json` armazena as publicações de QC (Quadrinhos e Charges) e é usado pela home, categoria, página de publicação e painel administrativo. A cópia legada idêntica foi removida.
 
 ## Checklist do primeiro lançamento
 
