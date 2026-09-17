@@ -10,17 +10,5 @@
       "A linguagem pode ser crítica, poética ou experimental, conforme a proposta da plataforma. O importante é que a obra tenha uma presença clara e uma leitura confortável para o público.",
       "Os próximos registros podem se aprofundar em ensaios, crônicas, poemas ou estudos, sempre mantendo uma relação direta com a identidade do projeto."
     ]
-  },
-  {
-    "id": "poema-exemplo",
-    "titulo": "Poema Exemplo",
-    "descricao": "Poema experimental",
-    "data": "2026-05-20",
-    "autor": "Autor 2",
-    "conteudo": [
-      "Luz sobre a página,\ncomo um objeto esquecido.",
-      "Há uma pausa no ar que se parece com memória.",
-      "E cada linha é um gesto de retorno."
-    ]
   }
 ]
