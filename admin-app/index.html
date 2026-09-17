@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>SKNO Admin</title>
   <link rel="stylesheet" href="styles.css">
+  <style>:root{--ink:#323232;--brown:#323232;--muted:#666}.brand{font-family:Copperplate,"Copperplate Gothic Light",fantasy}</style>
 </head>
 <body>
   <header class="topbar">
@@ -17,8 +18,7 @@
       <h2>Nova publicação</h2>
       <div class="type-grid" aria-label="Tipos de publicação">
         <button data-new="texto">TEXTO</button><button data-new="qc">QC</button>
-        <button data-new="arte">ARTE VISUAL</button><button data-new="musica">MÚSICA</button>
-        <button data-new="filme">FILME</button>
+        <button data-new="arte">ARTE VISUAL</button><button data-new="musica">ÁUDIO</button>
       </div>
       <h2>Publicações</h2>
       <button id="manageButton" class="wide">GERENCIAR PUBLICAÇÕES</button>
@@ -42,7 +42,6 @@
         <div id="qcFields" class="kind-fields" hidden><div class="field"><label for="pdfUrl">URL direta do PDF</label><input id="pdfUrl" type="url" placeholder="https://…"></div><div class="field"><label for="pdfFile">Ou PDF (máx. 20 MiB)</label><input id="pdfFile" type="file" accept="application/pdf,.pdf"></div></div>
         <div id="artFields" class="kind-fields" hidden><div class="field"><label for="presentation">Texto / apresentação</label><textarea id="presentation" rows="5"></textarea></div><div class="field"><label for="artFiles">Imagens (máx. 10 MiB cada; até 20)</label><input id="artFiles" type="file" multiple accept="image/jpeg,image/png,image/webp,.jpg,.jpeg,.png,.webp"></div><div id="artList" class="file-list"></div></div>
         <div id="musicFields" class="kind-fields" hidden><div class="field"><label for="coverFile">Capa (máx. 10 MiB)</label><input id="coverFile" type="file" accept="image/jpeg,image/png,image/webp,.jpg,.jpeg,.png,.webp"></div><div id="tracks"></div><button type="button" id="addTrack">+ ADICIONAR FAIXA</button></div>
-        <div id="filmFields" class="kind-fields" hidden><div class="field"><label for="posterFile">Poster (máx. 10 MiB)</label><input id="posterFile" type="file" accept="image/jpeg,image/png,image/webp,.jpg,.jpeg,.png,.webp"></div><div class="field"><label for="videoUrl">URL direta do vídeo</label><input id="videoUrl" type="url" placeholder="https://…"></div><div class="field"><label for="videoFile">Ou vídeo (máx. 20 MiB)</label><input id="videoFile" type="file" accept="video/mp4,video/webm,.mp4,.webm"></div></div>
 
         <div id="formMessage" class="notice" role="alert" hidden></div>
         <div class="actions"><button type="button" id="previewButton">VISUALIZAR</button><button type="button" id="draftButton">SALVAR RASCUNHO LOCAL</button><button type="submit" class="primary">PUBLICAR</button></div>
@@ -51,7 +50,7 @@
 
     <section id="manageView" class="view" hidden>
       <button class="back" data-home>← VOLTAR</button><h1>PUBLICAÇÕES</h1>
-      <div id="filters" class="filters"><button data-filter="all" class="active">TODAS</button><button data-filter="texto">TEXTOS</button><button data-filter="qc">QC</button><button data-filter="arte">ARTES</button><button data-filter="musica">MÚSICAS</button><button data-filter="filme">FILMES</button></div>
+      <div id="filters" class="filters"><button data-filter="all" class="active">TODAS</button><button data-filter="texto">TEXTOS</button><button data-filter="qc">QC</button><button data-filter="arte">ARTES</button><button data-filter="musica">ÁUDIO</button></div>
       <div id="publicationList" class="publication-list" aria-live="polite"></div>
     </section>
   </main>

@@ -1,7 +1,7 @@
 const $ = id => document.getElementById(id);
 const views = [$("homeView"), $("editorView"), $("manageView")];
-const typeLabels = { texto: "TEXTO", qc: "QC", arte: "ARTE VISUAL", musica: "MÚSICA", filme: "FILME" };
-const publicLinks = { texto: "post/texto.html", qc: "post/qc.html", arte: "post/arte.html", musica: "post/album.html", filme: "post/filme.html" };
+const typeLabels = { texto: "TEXTO", qc: "QC", arte: "ARTE VISUAL", musica: "ÁUDIO" };
+const publicLinks = { texto: "post/texto.html", qc: "post/qc.html", arte: "post/arte.html", musica: "post/album.html" };
 let publications = [], currentExisting = {}, artFiles = [], deleteTarget = null, titleTouchedSlug = false;
 
 function show(view) { views.forEach(item => item.hidden = item !== view); window.scrollTo(0, 0); }
@@ -19,7 +19,7 @@ function resetEditor(type, publication = null) {
   $("publicationForm").reset(); $("formMessage").hidden = true; $("type").value = type; $("originalId").value = publication?.id || ""; currentExisting = publication ? structuredClone(publication) : {}; artFiles = []; titleTouchedSlug = Boolean(publication);
   $("editorTitle").textContent = `${publication ? "EDITAR" : "NOVA"} ${typeLabels[type]}`;
   document.querySelectorAll(".kind-fields").forEach(el => el.hidden = true);
-  ({ texto: "textFields", qc: "qcFields", arte: "artFields", musica: "musicFields", filme: "filmFields" })[type] && ($( ({ texto: "textFields", qc: "qcFields", arte: "artFields", musica: "musicFields", filme: "filmFields" })[type]).hidden = false);
+  ({ texto: "textFields", qc: "qcFields", arte: "artFields", musica: "musicFields" })[type] && ($( ({ texto: "textFields", qc: "qcFields", arte: "artFields", musica: "musicFields" })[type]).hidden = false);
   $("author").required = ["texto", "arte"].includes(type); $("tracks").replaceChildren(); renderArtFiles();
   if (publication) {
     $("title").value = publication.titulo || ""; $("author").value = publication.autor || ""; $("date").value = publication.data || ""; $("description").value = publication.descricao || ""; $("slug").value = publication.id || "";
@@ -49,7 +49,6 @@ function collect() {
   if (type === "qc") item.pdf = $("pdfUrl").value.trim() || currentExisting.pdf || "";
   if (type === "arte") { item.texto = $("presentation").value.trim(); item.imagens = artFiles.filter(v => v.path).map(v => v.path); }
   if (type === "musica") { item.capa = currentExisting.capa || ""; item.faixas = [...$("tracks").children].map(row => ({ titulo: row.querySelector(".track-title").value.trim(), arquivo: row.querySelector(".track-url").value.trim() || row.dataset.path || "" })); }
-  if (type === "filme") { item.poster = currentExisting.poster || ""; item.video = $("videoUrl").value.trim() || currentExisting.video || ""; }
   return item;
 }
 function validateClient(item, type) {
@@ -66,7 +65,6 @@ async function uploadPending(item, type) {
     if (type === "qc" && $("pdfFile").files[0]) { const result = await upload($("pdfFile").files[0], type, item.id, "pdf"); item.pdf = result.path; uploaded.push(result.path); }
     if (type === "arte") for (const entry of artFiles) { if (entry.file) { const result = await upload(entry.file, type, item.id, "image"); entry.path = result.path; uploaded.push(result.path); } } item.imagens = artFiles.map(v => v.path);
     if (type === "musica") { if ($("coverFile").files[0]) { const result = await upload($("coverFile").files[0], type, item.id, "image"); item.capa = result.path; uploaded.push(result.path); } const rows = [...$("tracks").children]; for (let i = 0; i < rows.length; i++) { const file = rows[i].querySelector(".track-file").files[0]; if (file) { const result = await upload(file, type, item.id, "audio"); item.faixas[i].arquivo = result.path; uploaded.push(result.path); } } }
-    if (type === "filme") { if ($("posterFile").files[0]) { const result = await upload($("posterFile").files[0], type, item.id, "image"); item.poster = result.path; uploaded.push(result.path); } if ($("videoFile").files[0]) { const result = await upload($("videoFile").files[0], type, item.id, "video"); item.video = result.path; uploaded.push(result.path); } }
   } catch (error) { if (uploaded.length) error.message += ` Arquivos já enviados, mas ainda não publicados: ${uploaded.join(", ")}.`; throw error; }
 }
 
@@ -76,7 +74,6 @@ function preview(item, type) {
   if (type === "arte") { const p = document.createElement("p"); p.textContent = item.texto || ""; root.append(p); artFiles.forEach(entry => { if (entry.file) { const img = document.createElement("img"); img.src = URL.createObjectURL(entry.file); img.alt = entry.name; root.append(img); } }); }
   if (type === "qc") { const p = document.createElement("p"); p.textContent = item.pdf || $("pdfFile").files[0]?.name || "PDF não selecionado"; root.append(p); }
   if (type === "musica") item.faixas.forEach(track => { const p = document.createElement("p"); p.textContent = `Faixa: ${track.titulo}`; root.append(p); });
-  if (type === "filme") { const p = document.createElement("p"); p.textContent = item.video || $("videoFile").files[0]?.name || "Vídeo não selecionado"; root.append(p); }
   $("previewDialog").showModal();
 }
 

@@ -3,8 +3,7 @@ async function loadHomePosts() {
     { categoria: "TEXTOS", arquivo: "data/textos.json", base: "post/texto.html" },
     { categoria: "QC", arquivo: "data/qc.json", base: "post/qc.html" },
     { categoria: "ARTES VISUAIS", arquivo: "data/artes.json", base: "post/arte.html" },
-    { categoria: "MÚSICAS", arquivo: "data/musicas.json", base: "post/album.html" },
-    { categoria: "FILMES", arquivo: "data/filmes.json", base: "post/filme.html" }
+    { categoria: "ÁUDIO", arquivo: "data/musicas.json", base: "post/album.html" }
   ];
 
   const publicacoes = [];

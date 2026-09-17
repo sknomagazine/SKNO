@@ -1,9 +1,9 @@
 :root {
   --bg: #f4efe6;
   --bg-strong: #efe7da;
-  --text: #2f241c;
-  --border: #6e4f2d;
-  --accent: #6e4f2d;
+  --text: #323232;
+  --border: #323232;
+  --accent: #323232;
   --cream: #f7f0e2;
   --card: #f8f4eb;
 }
@@ -48,7 +48,7 @@ a { color: inherit; }
 .site-logo-image.small { width: 60px; }
 
 .site-title {
-  font-family: Georgia, "Times New Roman", serif;
+  font-family: Copperplate, "Copperplate Gothic Light", fantasy;
   font-size: 2.7rem;
   letter-spacing: 0.16em;
   font-weight: 700;
@@ -117,7 +117,7 @@ main {
   text-align: center;
   margin-bottom: 36px;
   font-size: 1.9rem;
-  font-family: Georgia, "Times New Roman", serif;
+  font-family: Calibri, "Trebuchet MS", Arial, sans-serif;
   font-weight: 700;
   letter-spacing: 0.06em;
 }
@@ -130,16 +130,16 @@ main {
 
 .publication-card {
   background: var(--card);
-  border: 1px solid rgba(110, 79, 45, 0.25);
+  border: 1px solid rgba(50, 50, 50, 0.25);
   border-radius: 16px;
   overflow: hidden;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
-  box-shadow: 0 8px 24px rgba(47, 36, 28, 0.04);
+  box-shadow: 0 8px 24px rgba(50, 50, 50, 0.04);
 }
 
 .publication-card:hover {
   transform: translateY(-3px);
-  box-shadow: 0 10px 26px rgba(47, 36, 28, 0.08);
+  box-shadow: 0 10px 26px rgba(50, 50, 50, 0.08);
 }
 
 .publication-card a {
@@ -182,7 +182,7 @@ main {
 .publication-content p,
 .publication-content small {
   font-size: 0.92rem;
-  color: #534233;
+  color: #323232;
 }
 
 .page-top {
@@ -273,7 +273,7 @@ main {
 
 .publication-item {
   background: var(--card);
-  border: 1px solid rgba(110, 79, 45, 0.24);
+  border: 1px solid rgba(50, 50, 50, 0.24);
   border-radius: 14px;
   padding: 18px;
   transition: transform 0.2s ease;
@@ -300,7 +300,7 @@ main {
 .site-footer {
   margin-top: 50px;
   padding: 26px 20px 34px;
-  border-top: 1px solid rgba(110, 79, 45, 0.2);
+  border-top: 1px solid rgba(50, 50, 50, 0.2);
 }
 
 .footer-links {
@@ -311,11 +311,11 @@ main {
   margin-bottom: 14px;
 }
 
-#siteFooter { text-align: center; color: #66503a; font-size: 0.92rem; }
+#siteFooter { text-align: center; color: #323232; font-size: 0.92rem; }
 
 .post-meta { margin-bottom: 20px; opacity: 0.9; }
 
-#conteudoTexto p, #conteudoArte p, #conteudoAlbum p, #conteudoFilme p {
+#conteudoTexto p, #conteudoArte p, #conteudoAlbum p {
   font-family: Georgia, "Times New Roman", serif;
 }
 
@@ -325,7 +325,7 @@ main {
   max-width: 720px;
   height: auto;
   margin: 0 0 24px;
-  border: 1px solid rgba(110, 79, 45, 0.24);
+  border: 1px solid rgba(50, 50, 50, 0.24);
 }
 
 .post-cover {
@@ -345,7 +345,7 @@ main {
 
 .post-embed {
   min-height: 80vh;
-  border: 1px solid rgba(110, 79, 45, 0.24);
+  border: 1px solid rgba(50, 50, 50, 0.24);
 }
 
 @media (max-width: 768px) {

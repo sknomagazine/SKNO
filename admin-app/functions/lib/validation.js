@@ -2,8 +2,7 @@ export const TYPES = {
   texto: { file: "data/textos.json", label: "texto" },
   qc: { file: "data/qc.json", label: "QC" },
   arte: { file: "data/artes.json", label: "arte" },
-  musica: { file: "data/musicas.json", label: "música" },
-  filme: { file: "data/filmes.json", label: "filme" }
+  musica: { file: "data/musicas.json", label: "áudio" }
 };
 
 export const LIMITS = { image: 10 * 1024 * 1024, pdf: 20 * 1024 * 1024, audio: 20 * 1024 * 1024, video: 20 * 1024 * 1024 };
@@ -31,30 +30,29 @@ export function validatePublication(type, input) {
   const item = { id: slugify(input.id), titulo: clean(input.titulo, 160), descricao: clean(input.descricao, 1000), data: clean(input.data, 10) };
   if (!item.id || item.id !== input.id) throw Object.assign(new Error("Slug inválido."), { status: 400, code: "INVALID_SLUG" });
   if (!item.titulo || !item.descricao || !dateValid(item.data)) throw Object.assign(new Error("Preencha título, descrição e uma data válida."), { status: 400, code: "INVALID_FIELDS" });
-  if (["texto", "arte", "musica", "filme"].includes(type)) item.autor = clean(input.autor, 160);
+  if (["texto", "arte", "musica"].includes(type)) item.autor = clean(input.autor, 160);
   if (["texto", "arte"].includes(type) && !item.autor) throw Object.assign(new Error("Informe o autor."), { status: 400, code: "INVALID_AUTHOR" });
   if (type === "texto") { item.conteudo = Array.isArray(input.conteudo) ? input.conteudo.map(v => clean(v, 100000)).filter(Boolean).slice(0, 500) : []; if (!item.conteudo.length) throw Object.assign(new Error("Informe o conteúdo."), { status: 400, code: "INVALID_CONTENT" }); }
   if (type === "qc") { item.pdf = validMediaPath(input.pdf, "qc") || url(input.pdf); if (!item.pdf) throw Object.assign(new Error("Envie um PDF ou informe uma URL válida."), { status: 400, code: "INVALID_MEDIA" }); if (input.autor) item.autor = clean(input.autor, 160); }
   if (type === "arte") { item.texto = clean(input.texto, 100000); item.imagens = Array.isArray(input.imagens) ? input.imagens.map(v => validMediaPath(v, "arte") || url(v)).filter(Boolean).slice(0, 20) : []; if (!item.imagens.length) throw Object.assign(new Error("Adicione pelo menos uma imagem."), { status: 400, code: "INVALID_MEDIA" }); }
   if (type === "musica") { item.capa = validMediaPath(input.capa, "musica") || url(input.capa); item.faixas = Array.isArray(input.faixas) ? input.faixas.slice(0, 30).map(track => ({ titulo: clean(track?.titulo, 160), arquivo: validMediaPath(track?.arquivo, "musica") || url(track?.arquivo) })).filter(t => t.titulo && t.arquivo) : []; if (!item.faixas.length) throw Object.assign(new Error("Adicione ao menos uma faixa com título e arquivo ou URL."), { status: 400, code: "INVALID_MEDIA" }); }
-  if (type === "filme") { item.poster = validMediaPath(input.poster, "filme") || url(input.poster); item.video = validMediaPath(input.video, "filme") || url(input.video); if (!item.video) throw Object.assign(new Error("Envie um vídeo ou informe uma URL válida."), { status: 400, code: "INVALID_MEDIA" }); }
   return item;
 }
 
 export function validMediaPath(value, type) {
   if (typeof value !== "string" || value.includes("..") || value.includes("\\") || value.startsWith("/")) return "";
-  return value.startsWith(`uploads/${type === "qc" ? "qc" : type === "arte" ? "artes" : type === "musica" ? "musicas" : "filmes"}/`) ? value : "";
+  return value.startsWith(`uploads/${type === "qc" ? "qc" : type === "arte" ? "artes" : "musicas"}/`) ? value : "";
 }
 
 export function validateUpload({ type, slug, kind, name, mime, size }) {
-  if (!TYPES[type] || !["qc", "arte", "musica", "filme"].includes(type)) throw Object.assign(new Error("Tipo inválido."), { status: 400, code: "INVALID_TYPE" });
+  if (!TYPES[type] || !["qc", "arte", "musica"].includes(type)) throw Object.assign(new Error("Tipo inválido."), { status: 400, code: "INVALID_TYPE" });
   if (!slug || slugify(slug) !== slug) throw Object.assign(new Error("Slug inválido."), { status: 400, code: "INVALID_SLUG" });
   if (!MIME[kind] || !MIME[kind][mime]) throw Object.assign(new Error("Tipo de arquivo não permitido."), { status: 415, code: "INVALID_MIME" });
   const ext = String(name || "").toLowerCase().split(".").pop();
   if (!MIME[kind][mime].includes(ext)) throw Object.assign(new Error("A extensão não corresponde ao tipo do arquivo."), { status: 415, code: "MIME_MISMATCH" });
   if (!Number.isFinite(size) || size <= 0 || size > LIMITS[kind]) throw Object.assign(new Error(`Arquivo excede o limite de ${LIMITS[kind] / 1048576} MiB.`), { status: 413, code: "FILE_TOO_LARGE" });
   const base = String(name).replace(/\.[^.]+$/, ""); const safe = slugify(base) || "arquivo";
-  const folder = { qc: "qc", arte: "artes", musica: "musicas", filme: "filmes" }[type];
+  const folder = { qc: "qc", arte: "artes", musica: "musicas" }[type];
   return `uploads/${folder}/${slug}/${safe}.${ext}`;
 }
 

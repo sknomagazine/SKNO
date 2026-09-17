@@ -136,8 +136,7 @@ const samples = {
   texto: { ...sample, conteudo: ["Parágrafo"] },
   qc: { ...sample, pdf: "uploads/qc/obra/obra.pdf" },
   arte: { ...sample, imagens: ["uploads/artes/obra/obra.png"], texto: "Apresentação" },
-  musica: { ...sample, faixas: [{ titulo: "Faixa", arquivo: "uploads/musicas/obra/faixa.mp3" }] },
-  filme: { ...sample, video: "uploads/filmes/obra/filme.mp4" }
+  musica: { ...sample, faixas: [{ titulo: "Faixa", arquivo: "uploads/musicas/obra/faixa.mp3" }] }
 };
 const apiContext = (method, body) => ({ request: new Request("https://admin.example/api/publications", { method, ...(body ? { body: JSON.stringify(body) } : {}) }), env });
 
