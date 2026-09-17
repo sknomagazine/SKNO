@@ -11,5 +11,16 @@
       "uploads/artes/imagem2.jpg",
       "uploads/artes/imagem3.jpg"
     ]
+  },
+  {
+    "id": "a-logo",
+    "titulo": "A LOGO",
+    "descricao": "Compilado de ideias de como a logo poderia ser, desde o ínicio o desenho foi o mesmo, mas o estilo de arte não. Mas este post serve bem mais como um teste.",
+    "data": "2026-09-17",
+    "autor": "Otavio \"Shap\"",
+    "texto": "",
+    "imagens": [
+      "uploads/artes/a-logo/1000004084.png"
+    ]
   }
 ]
