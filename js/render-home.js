@@ -23,7 +23,9 @@ async function loadHomePosts() {
           descricao: pub.descricao || pub.texto || "Publicação",
           data: pub.data || "",
           link: `${item.base}?id=${encodeURIComponent(pub.id)}`,
-          thumbnail: pub.thumbnail || pub.capa || pub.poster || ""
+          thumbnails: [pub.thumbnail, pub.capa, pub.poster, pub.imagem, ...(Array.isArray(pub.imagens) ? pub.imagens : [])]
+            .filter((src) => typeof src === "string" && src.trim()),
+          fallback: `assets/thumbnails/${item.arquivo.split("/").pop().replace(".json", ".svg")}`
         });
       });
     } catch (error) {
@@ -58,18 +60,21 @@ async function loadHomePosts() {
       const link = document.createElement("a");
       link.href = pub.link;
 
-      if (pub.thumbnail) {
-        const img = document.createElement("img");
-        img.className = "publication-thumb";
-        img.src = pub.thumbnail;
-        img.alt = pub.titulo;
-        link.appendChild(img);
-      } else {
-        const placeholder = document.createElement("div");
-        placeholder.className = "publication-thumb-placeholder";
-        placeholder.textContent = pub.categoria;
-        link.appendChild(placeholder);
-      }
+      link.setAttribute("aria-label", `${pub.titulo} — ${pub.categoria}`);
+      const img = document.createElement("img");
+      img.className = "publication-thumb";
+      img.alt = "";
+      img.loading = container.childElementCount < 2 ? "eager" : "lazy";
+      img.decoding = "async";
+      img.width = 800;
+      img.height = 600;
+      const sources = [...new Set(pub.thumbnails), pub.fallback];
+      let sourceIndex = 0;
+      img.addEventListener("error", () => {
+        if (sourceIndex < sources.length - 1) img.src = sources[++sourceIndex];
+      });
+      img.src = sources[sourceIndex];
+      link.appendChild(img);
 
       const content = document.createElement("div");
       content.className = "publication-content";
@@ -77,15 +82,19 @@ async function loadHomePosts() {
       const title = document.createElement("h3");
       title.textContent = pub.titulo;
 
-      const description = document.createElement("p");
-      description.textContent = pub.descricao;
-
-      const date = document.createElement("small");
-      date.textContent = pub.data;
+      const meta = document.createElement("div");
+      meta.className = "publication-meta";
+      const category = document.createElement("span");
+      category.textContent = pub.categoria;
+      const date = document.createElement("time");
+      if (/^\d{4}-\d{2}-\d{2}$/.test(pub.data)) {
+        date.dateTime = pub.data;
+        date.textContent = pub.data.slice(0, 4);
+      }
+      meta.append(category, date);
 
       content.appendChild(title);
-      content.appendChild(description);
-      content.appendChild(date);
+      content.appendChild(meta);
       link.appendChild(content);
       card.appendChild(link);
       container.appendChild(card);

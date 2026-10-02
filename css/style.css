@@ -130,61 +130,96 @@ main {
   gap: 22px;
 }
 
-.publication-card {
-  background: var(--card);
-  border: 1px solid rgba(50, 50, 50, 0.25);
-  border-radius: 16px;
-  overflow: hidden;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  box-shadow: 0 8px 24px rgba(50, 50, 50, 0.04);
+/* Image-led gallery inspired by Radiogr?fico; scoped to the home page. */
+.latest-posts .publication-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0;
 }
 
-.publication-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 10px 26px rgba(50, 50, 50, 0.08);
+.publication-card {
+  position: relative;
+  min-width: 0;
+  overflow: hidden;
+  background: var(--bg-strong);
+  aspect-ratio: 4 / 3;
 }
 
 .publication-card a {
   display: block;
   height: 100%;
   text-decoration: none;
-  color: inherit;
+  color: #fff;
+}
+
+.publication-card a:focus-visible {
+  outline: 3px solid #fff;
+  outline-offset: -6px;
 }
 
 .publication-thumb {
   width: 100%;
-  height: 220px;
+  height: 100%;
   object-fit: cover;
-  display: block;
 }
 
-.publication-thumb-placeholder {
-  width: 100%;
-  height: 220px;
-  display: grid;
-  place-items: center;
-  background: var(--bg-strong);
-  color: var(--accent);
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: 1.2rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-align: center;
-  padding: 16px;
+.publication-content {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: clamp(18px, 3vw, 36px);
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0) 95%);
+  opacity: 0;
+  transition: opacity 240ms ease;
 }
 
-.publication-content { padding: 16px; }
+.publication-card:hover .publication-content,
+.publication-card:focus-within .publication-content { opacity: 1; }
 
 .publication-content h3 {
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: 1.05rem;
-  margin-bottom: 8px;
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: clamp(2rem, 5vw, 4.5rem);
+  font-weight: 700;
+  line-height: 1.04;
+  letter-spacing: -0.04em;
+  overflow-wrap: anywhere;
+  margin-bottom: 20px;
 }
 
-.publication-content p,
-.publication-content small {
-  font-size: 0.92rem;
-  color: #323232;
+@supports (-webkit-text-stroke: 1px white) {
+  .publication-content h3 {
+    color: transparent;
+    -webkit-text-stroke: 1px #fff;
+  }
+}
+
+.publication-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+  border-block: 1px solid currentColor;
+  padding-block: 5px;
+  font-size: clamp(0.75rem, 1.4vw, 1rem);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+.publication-meta time { flex-shrink: 0; }
+
+@media (hover: none), (max-width: 767px) {
+  .publication-content { opacity: 1; }
+}
+
+@media (max-width: 767px) {
+  .latest-posts .publication-grid { grid-template-columns: minmax(0, 1fr); }
+  .publication-card { aspect-ratio: 1; }
+  .publication-content h3 { font-size: clamp(2rem, 10vw, 4.5rem); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .publication-content { transition: none; }
 }
 
 .page-top {
